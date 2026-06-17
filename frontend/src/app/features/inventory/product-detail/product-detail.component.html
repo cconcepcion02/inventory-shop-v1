@@ -1,0 +1,90 @@
+@if (product(); as product) {
+  <section class="detail-header">
+    <div>
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.sku }}</p>
+    </div>
+
+    @if (authStore.isAdmin()) {
+      <button mat-flat-button color="primary" [routerLink]="['/inventory', product.id, 'edit']">Edit</button>
+    }
+  </section>
+
+  <div class="detail-grid">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Product info</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Description:</strong> {{ product.description || '—' }}</p>
+        <p><strong>Cost:</strong> {{ product.cost_price | currency:'PHP':'symbol':'1.2-2' }}</p>
+        <p><strong>Price:</strong> {{ product.selling_price | currency:'PHP':'symbol':'1.2-2' }}</p>
+        <p><strong>Reorder level:</strong> {{ product.reorder_level }}</p>
+        <p><strong>Status:</strong> {{ product.is_active ? 'Active' : 'Inactive' }}</p>
+        <p><strong>Current stock:</strong> {{ stock()?.on_hand ?? 0 }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Images</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        @if (product.images.length) {
+          <ul>
+            @for (image of product.images; track image.id) {
+              <li><a [href]="image.url" target="_blank" rel="noopener">{{ image.url }}</a></li>
+            }
+          </ul>
+        } @else {
+          <p>No images uploaded.</p>
+        }
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Notes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="note-form" [formGroup]="noteForm" (ngSubmit)="addNote()">
+          <mat-form-field appearance="outline" class="note-field">
+            <mat-label>Add note</mat-label>
+            <textarea matInput rows="3" formControlName="note"></textarea>
+          </mat-form-field>
+          <button mat-flat-button color="primary" type="submit" [disabled]="addingNote()">Save note</button>
+        </form>
+
+        @if (product.notes.length) {
+          <ul>
+            @for (note of product.notes; track note.id) {
+              <li>
+                <div>{{ note.note }}</div>
+                <small>{{ note.created_by }} · {{ note.created_at | date:'medium' }}</small>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p>No notes yet.</p>
+        }
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Cross references</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        @if (product.cross_references.length) {
+          <ul>
+            @for (ref of product.cross_references; track ref.id) {
+              <li>{{ ref.equivalent_product_id }} @if (ref.note) { - {{ ref.note }} }</li>
+            }
+          </ul>
+        } @else {
+          <p>No cross references.</p>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

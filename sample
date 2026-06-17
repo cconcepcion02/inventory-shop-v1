@@ -1,1 +1,16 @@
-Sample
+ How to run
+
+ # 1. Copy env and start backend
+ cd backend
+ cp .env.example .env    # edit DB credentials
+ docker-compose up -d    # runs migrations + seeds on first start
+ 
+ # 2. Seed the database (first time)
+ docker exec inventory_api python scripts/seed.py
+ 
+ # 3. Start frontend
+ cd ../frontend
+ npm start               # http://localhost:4200
+ 
+ # 4. Login
+ # Username: admin  |  Password: Admin@1234

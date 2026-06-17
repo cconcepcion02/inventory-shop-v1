@@ -1,0 +1,114 @@
+<section class="page-header">
+  <div>
+    <h1>Inventory</h1>
+    <p>Manage motorcycle parts, pricing, and stock levels.</p>
+  </div>
+
+  @if (authStore.isAdmin()) {
+    <button mat-flat-button color="primary" type="button" (click)="openCreate()">
+      <mat-icon>add</mat-icon>
+      Add product
+    </button>
+  }
+</section>
+
+<section class="filters">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="SKU or product name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <mat-select [formControl]="categoryControl">
+      <mat-option value="">All</mat-option>
+      @for (category of categories(); track category.id) {
+        <mat-option [value]="category.id">{{ category.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Brand</mat-label>
+    <mat-select [formControl]="brandControl">
+      <mat-option value="">All</mat-option>
+      @for (brand of brands(); track brand.id) {
+        <mat-option [value]="brand.id">{{ brand.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [formControl]="statusControl">
+      <mat-option value="">All</mat-option>
+      <mat-option value="active">Active</mat-option>
+      <mat-option value="inactive">Inactive</mat-option>
+    </mat-select>
+  </mat-form-field>
+</section>
+
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+<div class="table-wrapper">
+  <table mat-table [dataSource]="products()" class="mat-elevation-z1">
+    <ng-container matColumnDef="sku">
+      <th mat-header-cell *matHeaderCellDef>SKU</th>
+      <td mat-cell *matCellDef="let product">{{ product.sku }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="brand">
+      <th mat-header-cell *matHeaderCellDef>Brand</th>
+      <td mat-cell *matCellDef="let product">{{ product.brand_id ?? '—' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let product">{{ product.category_id ?? '—' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef>Stock</th>
+      <td mat-cell *matCellDef="let product">{{ product.stock_on_hand ?? 0 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let product">{{ product.selling_price | currency:'PHP':'symbol':'1.2-2' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let product">{{ product.is_active ? 'Active' : 'Inactive' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let product">
+        @if (authStore.isAdmin()) {
+          <button mat-icon-button type="button" (click)="editProduct(product, $event)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="openDetail(row)"></tr>
+  </table>
+</div>
+
+<mat-paginator
+  [length]="total()"
+  [pageIndex]="currentPage()"
+  [pageSize]="pageSize()"
+  [pageSizeOptions]="[5, 10, 25, 50]"
+  (page)="handlePage($event)"
+/>

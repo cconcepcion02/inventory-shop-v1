@@ -1,0 +1,77 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>New stock receipt</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="form-layout" [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Supplier</mat-label>
+        <mat-select formControlName="supplier_id">
+          <mat-option value="">None</mat-option>
+          @for (supplier of suppliers(); track supplier.id) {
+            <mat-option [value]="supplier.id">{{ supplier.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Received at</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="received_at" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Notes</mat-label>
+        <textarea matInput rows="3" formControlName="notes"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Search product</mat-label>
+        <input matInput formControlName="product_search" placeholder="Type a SKU or product name" />
+      </mat-form-field>
+
+      @if (searchResults().length) {
+        <mat-nav-list class="full-width">
+          @for (product of searchResults(); track product.id) {
+            <button mat-list-item type="button" (click)="addProduct(product)">
+              <span matListItemTitle>{{ product.name }}</span>
+              <span matListItemLine>{{ product.sku }}</span>
+            </button>
+          }
+        </mat-nav-list>
+      }
+
+      <div class="full-width items-table" formArrayName="items">
+        @for (item of items.controls; track $index) {
+          <div class="item-row" [formGroupName]="$index">
+            <mat-form-field appearance="outline">
+              <mat-label>Product</mat-label>
+              <input matInput formControlName="product_name" readonly />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <input matInput type="number" formControlName="quantity" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Unit cost</mat-label>
+              <input matInput type="number" formControlName="unit_cost" />
+            </mat-form-field>
+
+            <button mat-icon-button type="button" (click)="removeRow($index)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        }
+      </div>
+
+      <div class="actions full-width">
+        <button mat-stroked-button type="button" routerLink="/receiving">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="saving()">Save receipt</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

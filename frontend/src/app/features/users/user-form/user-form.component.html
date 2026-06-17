@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ userId() ? 'Edit user' : 'New user' }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="form-grid" [formGroup]="form" (ngSubmit)="save()">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role_id">
+          @for (role of roles; track role.id) {
+            <mat-option [value]="role.id">{{ role.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="is_active" class="full-width">Active user</mat-checkbox>
+
+      <div class="actions full-width">
+        <button mat-stroked-button type="button" routerLink="/users">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="saving()">Save</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

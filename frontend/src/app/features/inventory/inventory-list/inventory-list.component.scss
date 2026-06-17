@@ -1,0 +1,26 @@
+.page-header,
+.filters {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.filters {
+  margin: 1rem 0;
+}
+
+.filters mat-form-field {
+  min-width: 180px;
+  flex: 1 1 200px;
+}
+
+.table-wrapper {
+  overflow: auto;
+}
+
+.table-wrapper table {
+  width: 100%;
+  cursor: pointer;
+}

@@ -1,0 +1,98 @@
+<!-- Top Nav -->
+<mat-toolbar class="landing-nav">
+  <mat-icon class="brand-icon">two_wheeler</mat-icon>
+  <span class="brand-name">MotoPartsHub</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/login" class="nav-login-btn">
+    <mat-icon>lock</mat-icon> Staff Login
+  </a>
+</mat-toolbar>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <mat-icon>two_wheeler</mat-icon>
+      Motorcycle Parts &amp; Repair
+    </div>
+    <h1 class="hero-title">
+      Your Complete<br />
+      <span class="hero-accent">Parts &amp; Workshop</span><br />
+      Management System
+    </h1>
+    <p class="hero-subtitle">
+      Fast inventory search, seamless POS transactions, and smart stock tracking —
+      all in one system built for motorcycle shops and racing specialists.
+    </p>
+    <div class="hero-actions">
+      <a mat-flat-button class="hero-cta-primary" routerLink="/login">
+        <mat-icon>login</mat-icon>
+        Get Started
+      </a>
+      <a mat-stroked-button class="hero-cta-secondary" href="#features">
+        <mat-icon>info</mat-icon>
+        Learn More
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-value">20,000+</span>
+        <span class="stat-label">Parts Tracked</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">Real-time</span>
+        <span class="stat-label">Stock Updates</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">Multi-brand</span>
+        <span class="stat-label">Cross Reference</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-icon-ring">
+      <mat-icon class="hero-big-icon">two_wheeler</mat-icon>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features-section" id="features">
+  <div class="features-container">
+    <div class="section-header">
+      <h2>Everything You Need</h2>
+      <p>A complete suite of tools for motorcycle parts stores and repair workshops</p>
+    </div>
+    <div class="features-grid">
+      @for (feature of features; track feature.title) {
+        <mat-card class="feature-card">
+          <div class="feature-icon-wrap">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <mat-card-content>
+            <h3>{{ feature.title }}</h3>
+            <p>{{ feature.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-section">
+  <h2>Ready to streamline your shop?</h2>
+  <p>Log in with your staff account to access the full system.</p>
+  <a mat-flat-button class="cta-btn" routerLink="/login">
+    <mat-icon>login</mat-icon>
+    Staff Login
+  </a>
+</section>
+
+<!-- Footer -->
+<footer class="landing-footer">
+  <mat-icon>two_wheeler</mat-icon>
+  <span>MotoPartsHub &copy; {{ currentYear }} — Motorcycle Parts &amp; Workshop Management</span>
+</footer>

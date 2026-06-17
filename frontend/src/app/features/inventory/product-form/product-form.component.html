@@ -1,0 +1,76 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ productId() ? 'Edit product' : 'New product' }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="form-grid" [formGroup]="form" (ngSubmit)="save()">
+      <mat-form-field appearance="outline">
+        <mat-label>SKU</mat-label>
+        <input matInput formControlName="sku" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="3" formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category_id">
+          <mat-option value="">None</mat-option>
+          @for (category of categories(); track category.id) {
+            <mat-option [value]="category.id">{{ category.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Brand</mat-label>
+        <mat-select formControlName="brand_id">
+          <mat-option value="">None</mat-option>
+          @for (brand of brands(); track brand.id) {
+            <mat-option [value]="brand.id">{{ brand.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Supplier</mat-label>
+        <mat-select formControlName="supplier_id">
+          <mat-option value="">None</mat-option>
+          @for (supplier of suppliers(); track supplier.id) {
+            <mat-option [value]="supplier.id">{{ supplier.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cost price</mat-label>
+        <input matInput type="number" formControlName="cost_price" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Selling price</mat-label>
+        <input matInput type="number" formControlName="selling_price" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Reorder level</mat-label>
+        <input matInput type="number" formControlName="reorder_level" />
+      </mat-form-field>
+
+      <mat-checkbox formControlName="is_active" class="full-width">Active product</mat-checkbox>
+
+      <div class="actions full-width">
+        <button mat-stroked-button type="button" routerLink="/inventory">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="saving()">Save</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

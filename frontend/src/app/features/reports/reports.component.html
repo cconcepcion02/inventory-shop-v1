@@ -1,0 +1,85 @@
+<mat-tab-group>
+  <mat-tab label="Daily Sales">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Report date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="salesPicker"
+            [value]="selectedDate()"
+            (dateChange)="selectedDate.set($event.value); loadDailySales()"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="salesPicker" />
+          <mat-datepicker #salesPicker />
+        </mat-form-field>
+
+        @if (dailySales(); as report) {
+          <div class="summary-grid">
+            <div><strong>Total sales:</strong> {{ report.total_sales }}</div>
+            <div><strong>Total revenue:</strong> {{ report.total_revenue | currency:'PHP':'symbol':'1.2-2' }}</div>
+          </div>
+
+          <table mat-table [dataSource]="report.items" class="full-width">
+            <ng-container matColumnDef="sale_number">
+              <th mat-header-cell *matHeaderCellDef>Sale #</th>
+              <td mat-cell *matCellDef="let item">{{ item.sale_number }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="cashier_id">
+              <th mat-header-cell *matHeaderCellDef>Cashier</th>
+              <td mat-cell *matCellDef="let item">{{ item.cashier_id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="sold_at">
+              <th mat-header-cell *matHeaderCellDef>Sold at</th>
+              <td mat-cell *matCellDef="let item">{{ item.sold_at | date:'short' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="total_amount">
+              <th mat-header-cell *matHeaderCellDef>Total</th>
+              <td mat-cell *matCellDef="let item">{{ item.total_amount | currency:'PHP':'symbol':'1.2-2' }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="salesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: salesColumns"></tr>
+          </table>
+        }
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+
+  <mat-tab label="Low Stock">
+    <mat-card>
+      <mat-card-content>
+        @if (lowStock(); as report) {
+          <p><strong>Total low stock items:</strong> {{ report.total }}</p>
+          <table mat-table [dataSource]="report.items" class="full-width">
+            <ng-container matColumnDef="sku">
+              <th mat-header-cell *matHeaderCellDef>SKU</th>
+              <td mat-cell *matCellDef="let item">{{ item.sku }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="on_hand">
+              <th mat-header-cell *matHeaderCellDef>On hand</th>
+              <td mat-cell *matCellDef="let item">{{ item.on_hand }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="reorder_level">
+              <th mat-header-cell *matHeaderCellDef>Reorder level</th>
+              <td mat-cell *matCellDef="let item">{{ item.reorder_level }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="lowStockColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: lowStockColumns"></tr>
+          </table>
+        }
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>

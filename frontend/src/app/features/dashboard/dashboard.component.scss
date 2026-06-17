@@ -1,0 +1,11 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.metric {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}

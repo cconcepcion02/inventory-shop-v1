@@ -1,0 +1,15 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.table-wrapper {
+  overflow: auto;
+}
+
+.table-wrapper table {
+  width: 100%;
+}

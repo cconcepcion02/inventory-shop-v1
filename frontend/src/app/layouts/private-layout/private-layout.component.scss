@@ -1,0 +1,189 @@
+.layout-container {
+  min-height: 100vh;
+  background: #f1f5f9;
+}
+
+// ── Sidenav ─────────────────────────────────────────────────────────
+.layout-sidenav {
+  width: 260px;
+  background: #0f172a;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  border-right: none !important;
+}
+
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  .sidenav-logo {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #f97316;
+    flex-shrink: 0;
+  }
+
+  .sidenav-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #f8fafc;
+    line-height: 1.2;
+  }
+
+  .sidenav-tagline {
+    font-size: 0.7rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.sidenav-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .user-name {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.2;
+  }
+
+  .user-role {
+    display: block;
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: capitalize;
+  }
+}
+
+.sidenav-nav {
+  flex: 1;
+  padding: 0.5rem 0;
+
+  .nav-item {
+    border-radius: 10px;
+    margin: 2px 8px;
+    height: 44px;
+
+    // Target Material's internal label + icon
+    --mdc-list-list-item-label-text-color: #cbd5e1;
+    --mdc-list-list-item-leading-icon-color: #94a3b8;
+    --mdc-list-list-item-hover-label-text-color: #f1f5f9;
+    --mdc-list-list-item-hover-leading-icon-color: #f1f5f9;
+    --mdc-list-list-item-hover-state-layer-color: rgba(255,255,255,0.08);
+
+    mat-icon { color: #94a3b8 !important; }
+
+    // Fallback for all text inside
+    ::ng-deep .mdc-list-item__primary-text,
+    ::ng-deep .mat-mdc-list-item-unscoped-content { color: #cbd5e1; }
+
+    &:hover {
+      background: rgba(255,255,255,0.08) !important;
+      mat-icon { color: #f1f5f9 !important; }
+      ::ng-deep .mdc-list-item__primary-text { color: #f1f5f9; }
+    }
+
+    &.active-link {
+      background: rgba(249,115,22,0.18) !important;
+      --mdc-list-list-item-label-text-color: #f97316;
+      --mdc-list-list-item-leading-icon-color: #f97316;
+
+      mat-icon { color: #f97316 !important; }
+      ::ng-deep .mdc-list-item__primary-text { color: #f97316; font-weight: 600; }
+    }
+  }
+}
+
+.sidenav-footer {
+  padding: 0.5rem 0 1rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  .logout-btn {
+    border-radius: 10px;
+    margin: 2px 8px;
+    width: calc(100% - 16px);
+    --mdc-list-list-item-label-text-color: #94a3b8;
+    --mdc-list-list-item-leading-icon-color: #64748b;
+    --mdc-list-list-item-hover-state-layer-color: rgba(239,68,68,0.12);
+
+    mat-icon { color: #64748b !important; }
+
+    ::ng-deep .mdc-list-item__primary-text { color: #94a3b8; }
+
+    &:hover {
+      --mdc-list-list-item-label-text-color: #ef4444;
+      --mdc-list-list-item-leading-icon-color: #ef4444;
+      mat-icon { color: #ef4444 !important; }
+      ::ng-deep .mdc-list-item__primary-text { color: #ef4444; }
+    }
+  }
+}
+
+// ── Main content ─────────────────────────────────────────────────────
+.layout-content {
+  background: #f1f5f9;
+}
+
+.layout-toolbar {
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0 1.5rem;
+  height: 60px;
+
+  .menu-btn {
+    display: none;
+    @media (max-width: 768px) { display: inline-flex; }
+  }
+
+  .toolbar-spacer { flex: 1; }
+
+  .toolbar-username {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569;
+    margin-right: 4px;
+  }
+}
+
+.page-content {
+  padding: 1.75rem 2rem;
+  min-height: calc(100vh - 60px);
+
+  @media (max-width: 600px) { padding: 1rem; }
+}
+
+// ── Mobile sidenav ───────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .layout-sidenav {
+    width: 240px;
+  }
+}

@@ -1,0 +1,37 @@
+<section class="dashboard-grid">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Total products</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric">{{ stats().products }}</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Low stock items</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric">{{ stats().lowStock }}</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Today's sales</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric">{{ stats().salesCount }}</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Today's revenue</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="metric">{{ stats().revenue | currency:'PHP':'symbol':'1.2-2' }}</div>
+    </mat-card-content>
+  </mat-card>
+</section>
