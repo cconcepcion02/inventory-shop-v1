@@ -12,9 +12,10 @@ import { AuthStore } from '../../core/stores/auth.store';
 
 interface NavItem {
   label: string;
-  icon: string;
-  route: string;
+  icon?: string;
+  route?: string;
   adminOnly?: boolean;
+  isGroup?: boolean;
 }
 
 @Component({
@@ -45,7 +46,11 @@ export class PrivateLayoutComponent {
     { label: 'POS', icon: 'point_of_sale', route: '/pos' },
     { label: 'Receiving', icon: 'move_to_inbox', route: '/receiving', adminOnly: true },
     { label: 'Reports', icon: 'bar_chart', route: '/reports', adminOnly: true },
-    { label: 'Users', icon: 'people', route: '/users', adminOnly: true }
+    { label: 'Users', icon: 'people', route: '/users', adminOnly: true },
+    { label: 'Catalog', adminOnly: true, isGroup: true },
+    { label: 'Categories', icon: 'category', route: '/catalog/categories', adminOnly: true },
+    { label: 'Brands', icon: 'branding_watermark', route: '/catalog/brands', adminOnly: true },
+    { label: 'Suppliers', icon: 'local_shipping', route: '/catalog/suppliers', adminOnly: true }
   ];
 
   protected readonly visibleNavItems = computed(() =>

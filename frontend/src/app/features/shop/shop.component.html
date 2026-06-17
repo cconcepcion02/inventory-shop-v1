@@ -1,0 +1,96 @@
+<!-- Top Nav -->
+<mat-toolbar class="shop-nav">
+  <mat-icon class="brand-icon">two_wheeler</mat-icon>
+  <span class="brand-name">MotoPartsHub</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/" class="nav-link">
+    <mat-icon>home</mat-icon> Home
+  </a>
+  <a mat-flat-button routerLink="/login" class="login-btn">
+    <mat-icon>lock</mat-icon> Staff Login
+  </a>
+</mat-toolbar>
+
+<!-- Hero -->
+<div class="shop-hero">
+  <h1>Parts Catalog</h1>
+  <p>Browse our inventory of motorcycle parts and accessories</p>
+
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search parts, SKU, brand…</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput [formControl]="searchCtrl" placeholder="e.g. SKF 6201, spark plug, brake pad" />
+    @if (searchCtrl.value) {
+      <button matSuffix mat-icon-button (click)="searchCtrl.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+</div>
+
+<!-- Results -->
+<div class="shop-body">
+  <div class="results-header">
+    @if (!isLoading()) {
+      <span>{{ totalProducts() }} parts found</span>
+    }
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-wrap">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else if (products().length === 0) {
+    <div class="empty-state">
+      <mat-icon>search_off</mat-icon>
+      <h3>No parts found</h3>
+      <p>Try a different search term or browse all parts</p>
+      <button mat-stroked-button (click)="searchCtrl.setValue('')">Clear Search</button>
+    </div>
+  } @else {
+    <div class="products-grid">
+      @for (product of products(); track product.id) {
+        <mat-card class="product-card">
+          <div class="product-image">
+            @if (getPrimaryImage(product)) {
+              <img [src]="getPrimaryImage(product)" [alt]="product.name" />
+            } @else {
+              <div class="product-image-placeholder">
+                <mat-icon>two_wheeler</mat-icon>
+              </div>
+            }
+            <span class="stock-badge" [class.in-stock]="product.in_stock">
+              {{ product.in_stock ? 'Available' : 'Unavailable' }}
+            </span>
+          </div>
+
+          <mat-card-content class="product-info">
+            <div class="product-sku">{{ product.sku }}</div>
+            <h3 class="product-name">{{ product.name }}</h3>
+            @if (product.description) {
+              <p class="product-desc">{{ product.description }}</p>
+            }
+            <div class="product-footer">
+              <span class="contact-label">Contact us for pricing</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
+    <mat-paginator
+      [length]="totalProducts()"
+      [pageSize]="pageSize()"
+      [pageIndex]="currentPage()"
+      [pageSizeOptions]="[12, 24, 48]"
+      (page)="onPageChange($event)"
+      showFirstLastButtons
+    />
+  }
+</div>
+
+<!-- Footer -->
+<footer class="shop-footer">
+  <mat-icon>two_wheeler</mat-icon>
+  <span>MotoPartsHub &copy; {{ currentYear }} — Contact us for pricing and availability</span>
+</footer>

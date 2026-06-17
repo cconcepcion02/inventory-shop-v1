@@ -1,0 +1,181 @@
+:host { display: block; background: #f8fafc; min-height: 100vh; }
+
+// Nav
+.shop-nav {
+  background: #0f172a;
+  color: #fff;
+  padding: 0 2rem;
+  position: sticky; top: 0; z-index: 100;
+
+  .brand-icon { color: #f97316; font-size: 26px; width: 26px; margin-right: 8px; }
+  .brand-name { font-size: 1.15rem; font-weight: 700; }
+  .spacer { flex: 1; }
+
+  .nav-link {
+    color: #cbd5e1;
+    mat-icon { font-size: 18px; width: 18px; }
+  }
+
+  .login-btn {
+    background: #f97316; color: #fff;
+    margin-left: 8px; border-radius: 8px;
+    display: flex; align-items: center; gap: 6px;
+    mat-icon { font-size: 18px; width: 18px; }
+  }
+}
+
+// Hero
+.shop-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  color: #f8fafc;
+
+  h1 { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+  p { color: #94a3b8; margin: 0 0 1.75rem; }
+}
+
+.search-field {
+  width: min(100%, 560px);
+
+  // Force white background on the field container inside dark hero
+  ::ng-deep .mat-mdc-form-field-flex { background: #fff; border-radius: 8px; }
+  ::ng-deep .mdc-notched-outline__leading,
+  ::ng-deep .mdc-notched-outline__notch,
+  ::ng-deep .mdc-notched-outline__trailing { border-color: transparent !important; }
+  ::ng-deep .mdc-floating-label { color: #64748b !important; }
+  // Notch label background must match the field background (white)
+  ::ng-deep .mdc-notched-outline__notch { background: #fff; border-right: none !important; }
+}
+
+// Body
+.shop-body {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 3rem;
+
+  @media (max-width: 600px) { padding: 1rem; }
+}
+
+.results-header {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+}
+
+.loading-wrap {
+  display: flex; justify-content: center;
+  padding: 4rem 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #64748b;
+
+  mat-icon { font-size: 56px; width: 56px; height: 56px; opacity: 0.3; }
+  h3 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem; color: #0f172a; }
+  p { margin: 0 0 1.5rem; }
+}
+
+// Grid
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.product-card {
+  border-radius: 14px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+  overflow: hidden;
+  transition: transform 0.18s, box-shadow 0.18s;
+  cursor: default;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1) !important;
+  }
+}
+
+.product-image {
+  position: relative;
+  height: 160px;
+  background: #f1f5f9;
+  display: flex; align-items: center; justify-content: center;
+
+  img { width: 100%; height: 100%; object-fit: cover; }
+
+  .product-image-placeholder {
+    mat-icon { font-size: 52px; width: 52px; height: 52px; color: #cbd5e1; }
+  }
+
+  .stock-badge {
+    position: absolute; top: 8px; right: 8px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.72rem; font-weight: 600;
+    background: #fef2f2; color: #b91c1c;
+
+    &.in-stock {
+      background: #f0fdf4; color: #15803d;
+    }
+  }
+}
+
+.product-info {
+  padding: 1rem !important;
+
+  .product-sku {
+    font-size: 0.72rem; font-weight: 600;
+    color: #f97316;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .product-name {
+    font-size: 0.95rem; font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 6px;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-desc {
+    font-size: 0.8rem; color: #64748b;
+    margin: 0 0 0.75rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-footer {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 0.5rem;
+
+    .contact-label {
+      font-size: 0.78rem; color: #94a3b8;
+      font-style: italic;
+    }
+  }
+}
+
+mat-paginator { background: transparent !important; margin-top: 1rem; }
+
+// Footer
+.shop-footer {
+  background: #0f172a; color: #64748b;
+  padding: 1.25rem 2rem;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; font-size: 0.85rem;
+
+  mat-icon { font-size: 18px; color: #f97316; }
+}

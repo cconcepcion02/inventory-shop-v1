@@ -5,6 +5,7 @@ from app.api.v1.brands import router as brands_router
 from app.api.v1.categories import router as categories_router
 from app.api.v1.inventory import router as inventory_router
 from app.api.v1.products import router as products_router
+from app.api.v1.public import router as public_router
 from app.api.v1.receiving import router as receiving_router
 from app.api.v1.reports import router as reports_router
 from app.api.v1.sales import router as sales_router
@@ -29,3 +30,4 @@ router.include_router(sales_router)
 router.include_router(receiving_router)
 router.include_router(reports_router)
 router.include_router(inventory_router)
+router.include_router(public_router)

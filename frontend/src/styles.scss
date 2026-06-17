@@ -44,3 +44,44 @@ body {
   color: #0f172a;
   margin: 0 0 1.5rem;
 }
+
+// Fix Angular Material 3 MDC notched outline double-border distortion
+// The notch (gap for floating label) has border-right by default which creates a broken line.
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
+
+// Ensure form-field outline is consistent across all pages
+.mat-mdc-form-field-appearance-outline .mdc-notched-outline {
+  --mdc-outlined-text-field-container-shape: 8px;
+}
+
+// Page-level layout helpers
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+
+  h1 { margin: 0; font-size: 1.5rem; font-weight: 700; color: #0f172a; }
+  p  { margin: 4px 0 0; font-size: 0.875rem; color: #64748b; }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  mat-form-field { flex: 1; min-width: 160px; }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.mat-mdc-table { width: 100%; }
+.mat-mdc-row:hover { background: #f8fafc !important; cursor: pointer; }

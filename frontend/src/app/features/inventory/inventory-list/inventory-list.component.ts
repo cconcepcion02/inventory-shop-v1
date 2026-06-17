@@ -1,5 +1,5 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
+import { Component, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -57,14 +57,21 @@ export class InventoryListComponent implements OnInit {
   protected readonly pageSize = signal(10);
   protected readonly currentPage = signal(0);
 
+  protected readonly categoryMap = computed(
+    () => new Map(this.categories().map((c) => [c.id, c.name]))
+  );
+  protected readonly brandMap = computed(
+    () => new Map(this.brands().map((b) => [b.id, b.name]))
+  );
+
   protected readonly searchControl = new FormControl('', { nonNullable: true });
   protected readonly categoryControl = new FormControl<string>('');
   protected readonly brandControl = new FormControl<string>('');
   protected readonly statusControl = new FormControl<string>('');
 
   ngOnInit(): void {
-    this.categoryService.list().subscribe((categories) => this.categories.set(categories));
-    this.brandService.list().subscribe((brands) => this.brands.set(brands));
+    this.categoryService.list({ page_size: 100 }).subscribe((categories) => this.categories.set(categories));
+    this.brandService.list({ page_size: 100 }).subscribe((brands) => this.brands.set(brands));
 
     this.searchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe(() => {
       this.currentPage.set(0);

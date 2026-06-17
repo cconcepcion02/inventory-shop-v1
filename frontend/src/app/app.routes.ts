@@ -18,6 +18,11 @@ export const routes: Routes = [
           import('./features/home/home.routes').then((m) => m.HOME_ROUTES)
       },
       {
+        path: 'shop',
+        loadChildren: () =>
+          import('./features/shop/shop.routes').then((m) => m.SHOP_ROUTES)
+      },
+      {
         path: 'login',
         loadChildren: () =>
           import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES)
@@ -65,6 +70,12 @@ export const routes: Routes = [
         canActivate: [adminGuard],
         loadChildren: () =>
           import('./features/users/users.routes').then((m) => m.USERS_ROUTES)
+      },
+      {
+        path: 'catalog',
+        canActivate: [adminGuard],
+        loadChildren: () =>
+          import('./features/catalog/catalog.routes').then((m) => m.CATALOG_ROUTES)
       }
     ]
   },

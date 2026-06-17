@@ -1,17 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { Supplier, SupplierCreate, SupplierUpdate } from '../models/supplier.model';
+import { PaginatedResponse } from '../models/common.model';
 
 @Injectable({ providedIn: 'root' })
 export class SupplierService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/suppliers`;
 
-  list(): Observable<Supplier[]> {
-    return this.http.get<Supplier[]>(this.apiUrl);
+  list(params?: Record<string, string | number>): Observable<Supplier[]> {
+    return this.http
+      .get<PaginatedResponse<Supplier>>(this.apiUrl, { params: params as Record<string, string> })
+      .pipe(map((r) => r.items));
+  }
+
+  listPaginated(params?: Record<string, string | number>): Observable<PaginatedResponse<Supplier>> {
+    return this.http.get<PaginatedResponse<Supplier>>(this.apiUrl, {
+      params: params as Record<string, string>
+    });
   }
 
   getById(id: string): Observable<Supplier> {

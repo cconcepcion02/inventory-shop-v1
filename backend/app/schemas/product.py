@@ -111,3 +111,35 @@ class ProductStockSnapshot(SchemaBase):
     product_id: UUID
     on_hand: int
     as_of: datetime
+
+
+class ProductPublicRead(SchemaBase):
+    """Public catalog view — no prices, no costs, no quantities."""
+    id: UUID
+    sku: str
+    name: str
+    description: str | None = None
+    category_id: UUID | None = None
+    brand_id: UUID | None = None
+    is_active: bool
+    in_stock: bool = True  # active products are available; exact qty is hidden
+    images: list[ProductImageRead] = Field(default_factory=list)
+    created_at: datetime
+
+    @classmethod
+    def model_validate(cls, obj: object, **kwargs: object) -> "ProductPublicRead":  # type: ignore[override]
+        from app.schemas.product import ProductRead  # avoid circular
+        if isinstance(obj, ProductRead):
+            return cls(
+                id=obj.id,
+                sku=obj.sku,
+                name=obj.name,
+                description=obj.description,
+                category_id=obj.category_id,
+                brand_id=obj.brand_id,
+                is_active=obj.is_active,
+                in_stock=obj.is_active,
+                images=obj.images,
+                created_at=obj.created_at,
+            )
+        return super().model_validate(obj, **kwargs)  # type: ignore[return-value]

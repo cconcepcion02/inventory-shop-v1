@@ -30,16 +30,24 @@
 
   .spacer { flex: 1; }
 
+  .nav-shop-btn {
+    color: #f97316;
+    font-weight: 600;
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
+    &:hover { background: rgba(249,115,22,0.1); }
+  }
+
   .nav-login-btn {
+    background: #f97316;
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 8px;
+    margin-left: 8px;
     display: flex;
     align-items: center;
     gap: 6px;
 
     mat-icon { font-size: 18px; width: 18px; height: 18px; }
-    &:hover { background: rgba(255,255,255,0.1); }
+    &:hover { background: #ea6c10; }
   }
 }
 
@@ -304,20 +312,36 @@
     margin: 0 0 2rem;
   }
 
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .cta-btn {
-    background: #fff;
-    color: #ea580c;
-    font-weight: 700;
     padding: 0 2rem;
     height: 48px;
     border-radius: 10px;
     font-size: 1rem;
+    font-weight: 700;
     display: inline-flex;
     align-items: center;
     gap: 8px;
 
     mat-icon { font-size: 20px; }
-    &:hover { background: #fff7ed; }
+
+    &.cta-shop {
+      background: #fff;
+      color: #ea580c;
+      &:hover { background: #fff7ed; }
+    }
+
+    &.cta-login {
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+      &:hover { background: rgba(255,255,255,0.1); }
+    }
   }
 }
 

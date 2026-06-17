@@ -66,12 +66,12 @@
 
     <ng-container matColumnDef="brand">
       <th mat-header-cell *matHeaderCellDef>Brand</th>
-      <td mat-cell *matCellDef="let product">{{ product.brand_id ?? '—' }}</td>
+      <td mat-cell *matCellDef="let product">{{ brandMap().get(product.brand_id ?? '') ?? '—' }}</td>
     </ng-container>
 
     <ng-container matColumnDef="category">
       <th mat-header-cell *matHeaderCellDef>Category</th>
-      <td mat-cell *matCellDef="let product">{{ product.category_id ?? '—' }}</td>
+      <td mat-cell *matCellDef="let product">{{ categoryMap().get(product.category_id ?? '') ?? '—' }}</td>
     </ng-container>
 
     <ng-container matColumnDef="stock">

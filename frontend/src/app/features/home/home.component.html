@@ -3,8 +3,11 @@
   <mat-icon class="brand-icon">two_wheeler</mat-icon>
   <span class="brand-name">MotoPartsHub</span>
   <span class="spacer"></span>
-  <a mat-button routerLink="/login" class="nav-login-btn">
-    <mat-icon>lock</mat-icon> Staff Login
+  <a mat-button routerLink="/shop" class="nav-shop-btn">
+    <mat-icon>storefront</mat-icon> Shop
+  </a>
+  <a mat-flat-button routerLink="/login" class="nav-login-btn">
+    <mat-icon>lock</mat-icon> Admin Login
   </a>
 </mat-toolbar>
 
@@ -25,13 +28,13 @@
       all in one system built for motorcycle shops and racing specialists.
     </p>
     <div class="hero-actions">
-      <a mat-flat-button class="hero-cta-primary" routerLink="/login">
-        <mat-icon>login</mat-icon>
-        Get Started
+      <a mat-flat-button class="hero-cta-primary" routerLink="/shop">
+        <mat-icon>storefront</mat-icon>
+        Browse Parts
       </a>
-      <a mat-stroked-button class="hero-cta-secondary" href="#features">
-        <mat-icon>info</mat-icon>
-        Learn More
+      <a mat-stroked-button class="hero-cta-secondary" routerLink="/login">
+        <mat-icon>lock</mat-icon>
+        Admin Login
       </a>
     </div>
     <div class="hero-stats">
@@ -84,11 +87,17 @@
 <!-- CTA Banner -->
 <section class="cta-section">
   <h2>Ready to streamline your shop?</h2>
-  <p>Log in with your staff account to access the full system.</p>
-  <a mat-flat-button class="cta-btn" routerLink="/login">
-    <mat-icon>login</mat-icon>
-    Staff Login
-  </a>
+  <p>Browse our parts catalog or log in with your staff account.</p>
+  <div class="cta-actions">
+    <a mat-flat-button class="cta-btn cta-shop" routerLink="/shop">
+      <mat-icon>storefront</mat-icon>
+      Browse Parts
+    </a>
+    <a mat-stroked-button class="cta-btn cta-login" routerLink="/login">
+      <mat-icon>lock</mat-icon>
+      Admin Login
+    </a>
+  </div>
 </section>
 
 <!-- Footer -->
